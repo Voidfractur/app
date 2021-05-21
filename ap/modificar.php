@@ -167,7 +167,7 @@ if (isset($_POST["btnModificarLibro"])) {
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="mislibros.php">Mis Libros</a>
                         <a class="collapse-item" href="login2.php">Login</a>
-                        <a class="collapse-item" href="agreagr.php">Registrar Libros</a>
+                        <a class="collapse-item" href="agregar.php">Registrar Libros</a>
                         <a class="collapse-item" href="modificar.php">Modificar Libros</a>
                         <a class="collapse-item" href="eliminar.php">Eliminar Libros</a>
                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
