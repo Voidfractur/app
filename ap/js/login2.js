@@ -1,6 +1,6 @@
 var current = null;
 
-document.getElementById('usuario').addEventListener('focus', function(e) {
+document.getElementById('email').addEventListener('focus', function(e) {
     if (current) current.pause();
     current = anime({
         targets: 'path',

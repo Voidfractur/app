@@ -4,50 +4,51 @@ $mensaje = "";
 if (!isset($_SESSION["user"])) {
     header("Location: login2.php");
     exit;
-}else{
+} else {
     $user = $_SESSION["user"];
     $pass = $_SESSION["pass"];
     $credenciales = $_SESSION["credenciales"];
+    $usu = $_SESSION["usu"];
 }
 
 if (isset($_POST["btnAgregarLibro"])) {
-    $titulo=urlencode($_POST["inputTitulo"]);
-    $editorial=urlencode($_POST["inputEditorial"]);
-    $area=urlencode($_POST["inputArea"]);
-    $autor=urlencode($_POST["inputAutor"]);
-    $imagen=urlencode($_POST["inputImagen"]);
-    $precio=urlencode($_POST["inputPrecio"]);
+    $titulo = urlencode($_POST["inputTitulo"]);
+    $editorial = urlencode($_POST["inputEditorial"]);
+    $area = urlencode($_POST["inputArea"]);
+    $autor = urlencode($_POST["inputAutor"]);
+    $imagen = urlencode($_POST["inputImagen"]);
+    $precio = urlencode($_POST["inputPrecio"]);
 
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-    CURLOPT_URL => 'apirest-laravel.com/libros',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'POST',
-    CURLOPT_POSTFIELDS => 'titulo='.$titulo.'&editorial='.$editorial.'&area='.$area.'&autor='.$autor.'&imagen='.$imagen.'&precio='.$precio.'',
-    CURLOPT_HTTPHEADER => array(
-        'Authorization: Basic ' . $credenciales,
-       // 'Authorization: Basic YTJ5YTEwYVhrbkpKN1lmbVd6b2tSVGlYQnNtSi42aUU5Sk5IdkhkVkJTZzlRMTFCUzNRV05OMkRLWXV1Om8yeW8xMm9kdzZMNUtFS1ZjcVRCQm4wc2JqM0dlUmhzc3hrSkJGWHN6d0VkeHJhTVFXOUY2Si5DSlVmRw==',
-        'Content-Type: application/x-www-form-urlencoded'
-    ),
+        CURLOPT_URL => 'apirest-php-nativo.com/libros/',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => 'titulo=' . $titulo . '&editorial=' . $editorial . '&area=' . $area . '&autor=' . $autor . '&imagen=' . $imagen . '&precio=' . $precio . '&id_usu='.$usu,
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Basic ' . $credenciales,
+            // 'Authorization: Basic YTJ5YTEwYVhrbkpKN1lmbVd6b2tSVGlYQnNtSi42aUU5Sk5IdkhkVkJTZzlRMTFCUzNRV05OMkRLWXV1Om8yeW8xMm9kdzZMNUtFS1ZjcVRCQm4wc2JqM0dlUmhzc3hrSkJGWHN6d0VkeHJhTVFXOUY2Si5DSlVmRw==',
+            'Content-Type: application/x-www-form-urlencoded'
+        ),
     ));
 
     $response = curl_exec($curl);
 
     curl_close($curl);
-    $json = json_decode($response,true);
-    if ($json["status"]==202) {
+    $json = json_decode($response, true);
+    if ($json["status"] == 200) {
         $mensaje = '<div class="alert alert-success" role="alert">
         Libro registrado Correctamente!
       </div>';
-    }else{
+    } else {
         $mensaje = '<div class="alert alert-danger" role="alert">
-        '.$json["status"].' '.$json["detalle"].'
+        ' . $json["status"] . ' ' . $json["detalle"] . '
       </div>';
     }
 }
@@ -80,14 +81,14 @@ if (isset($_POST["btnAgregarLibro"])) {
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Pagina <sup>Principal</sup></div>
+                <div class="sidebar-brand-text mx-3">PHP<sup>Nativo</sup></div>
             </a>
 
             <!-- Divider -->
@@ -225,7 +226,7 @@ if (isset($_POST["btnAgregarLibro"])) {
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-info" type="button">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -246,7 +247,7 @@ if (isset($_POST["btnAgregarLibro"])) {
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
+                                            <button class="btn btn-info" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
                                             </button>
                                         </div>
@@ -269,7 +270,7 @@ if (isset($_POST["btnAgregarLibro"])) {
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
+                                        <div class="icon-circle bg-info">
                                             <i class="fas fa-file-alt text-white"></i>
                                         </div>
                                     </div>
@@ -405,7 +406,7 @@ if (isset($_POST["btnAgregarLibro"])) {
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Registrar Libros</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
                     <!-- Content Row -->
@@ -417,7 +418,7 @@ if (isset($_POST["btnAgregarLibro"])) {
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Libros</h6>
+                                    <h6 class="m-0 font-weight-bold text-info">Libros</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -467,38 +468,38 @@ if (isset($_POST["btnAgregarLibro"])) {
                                             </div>
                                         </div>-->
                                         <div class="row row-cols-1 row-cols-md g-4">
-                                        <form class="row g-3" method="POST" action="">
-        <div class="col-6">
-            <label for="inputTitulo" class="form-label">Titulo</label>
-            <input type="text" class="form-control" id="inputTitulo" name="inputTitulo" placeholder="Matematicas II" required>
-        </div>
-        <div class="col-6">
-            <label for="inputEditorial" class="form-label">Editorial</label>
-            <input type="text" class="form-control" id="inputEditorial" name="inputEditorial" placeholder="stronger" required>
-        </div>
-        <div class="col-md-4">
-            <label for="inputArea" class="form-label">Area</label>
-            <input type="text" class="form-control" id="inputArea" name="inputArea" required>
-        </div>
-        <div class="col-md-6">
-            <label for="inputAutor" class="form-label">Autor</label>
-            <input type="text" class="form-control" id="inputAutor" name="inputAutor" required>
-        </div>
-        <div class="col-md-8">
-            <label for="inputImagen" class="form-label">Imagen</label>
-            <input type="url" class="form-control" id="inputImagen" name="inputImagen" required>
-        </div>
-        <div class="col-md-4">
-            <label for="inputPrecio" class="form-label">Precio</label>
-            <input type="number" class="form-control" id="inputPrecio" name="inputPrecio" required>
-        </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary" name="btnAgregarLibro">Agregar Libro</button>
-        </div>
-    </form>
-    <?php
-         echo $mensaje;
-    ?>
+                                            <form class="row g-3" method="POST" action="">
+                                                <div class="col-6">
+                                                    <label for="inputTitulo" class="form-label">Titulo</label>
+                                                    <input type="text" class="form-control" id="inputTitulo" name="inputTitulo" placeholder="Matematicas II" required>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="inputEditorial" class="form-label">Editorial</label>
+                                                    <input type="text" class="form-control" id="inputEditorial" name="inputEditorial" placeholder="stronger" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="inputArea" class="form-label">Area</label>
+                                                    <input type="text" class="form-control" id="inputArea" name="inputArea" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="inputAutor" class="form-label">Autor</label>
+                                                    <input type="text" class="form-control" id="inputAutor" name="inputAutor" required>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <label for="inputImagen" class="form-label">Imagen</label>
+                                                    <input type="url" class="form-control" id="inputImagen" name="inputImagen" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="inputPrecio" class="form-label">Precio</label>
+                                                    <input type="number" class="form-control" id="inputPrecio" name="inputPrecio" required>
+                                                </div>
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-info" name="btnAgregarLibro">Agregar Libro</button>
+                                                </div>
+                                            </form>
+                                            <?php
+                                            echo $mensaje;
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -546,7 +547,7 @@ if (isset($_POST["btnAgregarLibro"])) {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="cerrar.php">Logout</a>
+                    <a class="btn btn-info" href="cerrar.php">Logout</a>
                 </div>
             </div>
         </div>

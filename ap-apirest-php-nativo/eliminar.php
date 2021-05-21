@@ -4,7 +4,7 @@ $mensaje = "";
 if (!isset($_SESSION["user"])) {
     header("Location: login2.php");
     exit;
-}else{
+} else {
     $user = $_SESSION["user"];
     $pass = $_SESSION["pass"];
     $credenciales = $_SESSION["credenciales"];
@@ -12,12 +12,10 @@ if (!isset($_SESSION["user"])) {
 
 if (isset($_POST["btnEliminar"])) {
     $cveLibro = urlencode($_POST["inputcve"]);
-
-
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-        CURLOPT_URL => 'apirest-laravel.com/libros/'.$cveLibro,
+        CURLOPT_URL => 'apirest-php-nativo.com/libros/'.$cveLibro,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -27,14 +25,14 @@ if (isset($_POST["btnEliminar"])) {
         CURLOPT_CUSTOMREQUEST => 'DELETE',
         CURLOPT_HTTPHEADER => array(
             'Authorization: Basic ' . $credenciales,
-           // 'Authorization: Basic YTJ5YTEwYVhrbkpKN1lmbVd6b2tSVGlYQnNtSi42aUU5Sk5IdkhkVkJTZzlRMTFCUzNRV05OMkRLWXV1Om8yeW8xMm9kdzZMNUtFS1ZjcVRCQm4wc2JqM0dlUmhzc3hrSkJGWHN6d0VkeHJhTVFXOUY2Si5DSlVmRw=='
+            // 'Authorization: Basic YTJ5YTEwYVhrbkpKN1lmbVd6b2tSVGlYQnNtSi42aUU5Sk5IdkhkVkJTZzlRMTFCUzNRV05OMkRLWXV1Om8yeW8xMm9kdzZMNUtFS1ZjcVRCQm4wc2JqM0dlUmhzc3hrSkJGWHN6d0VkeHJhTVFXOUY2Si5DSlVmRw=='
         ),
     ));
     $response = curl_exec($curl);
 
     curl_close($curl);
     $json = json_decode($response, true);
-    if ($json["status"] == 202) {
+    if ($json["status"] == 200) {
         $mensaje = '<div class="alert alert-success" role="alert">
         Libro Eliminado Correctamente!
       </div>';
@@ -43,18 +41,17 @@ if (isset($_POST["btnEliminar"])) {
         $mensaje = '<div class="alert alert-warning" role="alert">
         Error: ' . $json["status"] . ' ' . $json["detalles"] . '
       </div>';
-    } 
+    }
     if ($json["status"] == 404) {
         $mensaje = '<div class="alert alert-warning" role="alert">
         Error: ' . $json["status"] . ' ' . $json["detalles"] . '
       </div>';
-    } 
+    }
     if ($json["status"] == 405) {
         $mensaje = '<div class="alert alert-Danger" role="alert">
         Error: ' . $json["status"] . ' ' . $json["detalles"] . '
       </div>';
-    } 
-        
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -85,14 +82,14 @@ if (isset($_POST["btnEliminar"])) {
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Pagina <sup>Principal</sup></div>
+                <div class="sidebar-brand-text mx-3">PHP<sup>Nativo</sup></div>
             </a>
 
             <!-- Divider -->
@@ -230,7 +227,7 @@ if (isset($_POST["btnEliminar"])) {
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-info" type="button">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -251,7 +248,7 @@ if (isset($_POST["btnEliminar"])) {
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
+                                            <button class="btn btn-info" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
                                             </button>
                                         </div>
@@ -274,7 +271,7 @@ if (isset($_POST["btnEliminar"])) {
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
+                                        <div class="icon-circle bg-info">
                                             <i class="fas fa-file-alt text-white"></i>
                                         </div>
                                     </div>
@@ -410,7 +407,7 @@ if (isset($_POST["btnEliminar"])) {
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Eliminar Libros</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
                     <!-- Content Row -->
@@ -422,7 +419,7 @@ if (isset($_POST["btnEliminar"])) {
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Libros</h6>
+                                    <h6 class="m-0 font-weight-bold text-info">Libros</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -472,19 +469,19 @@ if (isset($_POST["btnEliminar"])) {
                                             </div>
                                         </div>-->
                                         <div class="row row-cols-1 row-cols-md g-4">
-                                        <form class="row g-3" method="POST" action="">
-        <div class="col-md-6">
-            <label for="inputcve" class="form-label">Clave del Libro</label>
-            <input type="text" class="form-control" id="inputcve" name="inputcve">
-        </div>
+                                            <form class="row g-3" method="POST" action="">
+                                                <div class="col-md-6">
+                                                    <label for="inputcve" class="form-label">Clave del Libro</label>
+                                                    <input type="text" class="form-control" id="inputcve" name="inputcve">
+                                                </div>
 
-        <div class="col-12">
-            <button type="submit" class="btn btn-danger" name="btnEliminar">Elminar Libro</button>
-        </div>
-    </form>
-    <?php
-         echo $mensaje;
-    ?>
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-danger" name="btnEliminar">Elminar Libro</button>
+                                                </div>
+                                            </form>
+                                            <?php
+                                            echo $mensaje;
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -532,7 +529,7 @@ if (isset($_POST["btnEliminar"])) {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="cerrar.php">Logout</a>
+                    <a class="btn btn-info" href="cerrar.php">Logout</a>
                 </div>
             </div>
         </div>
