@@ -13,7 +13,7 @@ if (!isset($_SESSION["user"])) {
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'apirest-laravel.com/consulta/'.$cveusu,
+  CURLOPT_URL => 'apirest-php-nativo.com/Mislibros/'.$cveusu,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -457,7 +457,7 @@ if (!$err) {
                                             </div>
                                         </div>-->
                                         <div class="row row-cols-1 row-cols-md-3 g-4">
-                                            <?php foreach ($json["detalles"] as $key => $value) : ?>
+                                            <?php foreach ($json["detalle"] as $key => $value) : ?>
                                                 <div class="col">
                                                     <div class="card">
                                                         <img src="<?php echo $value["imagen"]; ?>" class="card-img-top" alt="...">

@@ -39,17 +39,17 @@ if (isset($_POST["btnEliminar"])) {
     }
     if ($json["status"] == 403) {
         $mensaje = '<div class="alert alert-warning" role="alert">
-        Error: ' . $json["status"] . ' ' . $json["detalles"] . '
+        Error: ' . $json["status"] . ' ' . $json["detalle"] . '
       </div>';
     }
     if ($json["status"] == 404) {
         $mensaje = '<div class="alert alert-warning" role="alert">
-        Error: ' . $json["status"] . ' ' . $json["detalles"] . '
+        Error: ' . $json["status"] . ' ' . $json["detalle"] . '
       </div>';
     }
     if ($json["status"] == 405) {
         $mensaje = '<div class="alert alert-Danger" role="alert">
-        Error: ' . $json["status"] . ' ' . $json["detalles"] . '
+        Error: ' . $json["status"] . ' ' . $json["detalle"] . '
       </div>';
     }
 }

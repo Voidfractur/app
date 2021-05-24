@@ -44,7 +44,7 @@ if (isset($_GET["iniciar"])) {
         header("Location: index.php");
     } else {
         $mensaje =  '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Error!</strong>  ' . $json["status"] . ' ' . $json["detalles"] . 'a
+        <strong>Error!</strong>  ' . $json["status"] . ' ' . $json["detalle"] . 'a
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>';
     }
